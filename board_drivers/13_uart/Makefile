@@ -1,5 +1,5 @@
 CROSS_COMPILE ?= arm-linux-gnueabihf-
-TARGET		  ?= high_ac_delay
+TARGET		  ?= uart
 
 CC			  := $(CROSS_COMPILE)gcc
 LD            := $(CROSS_COMPILE)ld
@@ -16,7 +16,8 @@ INCLUDIR	  := imx6ul \
 				 bsp/gpio\
 				 bsp/interrupt\
 				 bsp/epit\
-				 bsp/key_filter
+				 bsp/key_filter\
+				 bsp/uart
 
 SRCDIR    := project \
 			 bsp/led \
@@ -28,7 +29,8 @@ SRCDIR    := project \
 			 bsp/gpio\
 			 bsp/interrupt\
 			 bsp/epit\
-			 bsp/key_filter
+			 bsp/key_filter\
+			 bsp/uart
 
 INCLUDE := $(patsubst %, -I %, $(INCLUDIR))
 SDIRFILES  := $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.s))
@@ -50,9 +52,9 @@ $(TARGET).bin : $(OBJS)
 	$(OBJDUMP) -D -m arm $(TARGET).elf > $(TARGET).dis
 
 $(COBJS) : obj/%.o : %.c
-	$(CC) -Wall -nostdlib -c -O2 $(INCLUDE) -o $@ $<
+	@$(CC) -Wall -nostdlib -fno-builtin -c -O2 $(INCLUDE) -o $@ $<
 $(SOBJS) : obj/%.o : %.s
-	$(CC) -Wall -nostdlib -c -O2 $(INCLUDE) -o $@ $<
+	@$(CC) -Wall -nostdlib -fno-builtin  -c -O2 $(INCLUDE) -o $@ $<
 
 .PHONY : clean
 

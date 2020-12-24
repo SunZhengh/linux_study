@@ -9,6 +9,7 @@
 #include "../bsp/exti/bsp_exti.h"
 #include "../bsp/epit/bsp_epit.h"
 #include "../bsp/key_filter/bsp_key_filter.h"
+#include "../bsp/uart/bsp_uart.h"
 
 void imx6ul_init(void)
 {
@@ -19,17 +20,14 @@ void imx6ul_init(void)
 	key_init();
 	beep_init();
 	delay_init();
+	bsp_uart_init();
 }
 
 int main(void)
 {
 	imx6ul_init();
-	static char state = 0;
-	while(1) {
-		state = !state;
-		led_control(state);
-		delay_ms(500);
-	}
+	char *a = "fuckyou";
+	puts((uint8_t*)a);
 	return 0;
 }
 

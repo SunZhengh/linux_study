@@ -16,7 +16,8 @@
                 "${workspaceFolder}/bsp/interrupt",
                 "${workspaceFolder}/bsp/key",
                 "${workspaceFolder}/bsp/key_filter",
-                "${workspaceFolder}/bsp/led"
+                "${workspaceFolder}/bsp/led",
+                "${workspaceFolder}/bsp/uart"
             ],
             "defines": [
                 "_DEBUG",
