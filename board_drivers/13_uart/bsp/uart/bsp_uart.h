@@ -4,7 +4,10 @@
 #include "imx6ul.h"
 #include "bsp_gpio.h"
 
-void bsp_uart_init(void);
-uint32_t puts(uint8_t *buf);
+void uart_init(void);
+void puts(char *buf);
+void putc(unsigned char c);
+unsigned char getc(void);
+void raise(int sig_nr);
 
 #endif // !__BSP_UART_H

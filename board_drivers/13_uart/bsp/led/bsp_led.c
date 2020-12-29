@@ -11,6 +11,7 @@ void led_init(void)
             IOMUXC_SetPinConfig(IOMUXC_GPIO1_IO03_GPIO1_IO03, 0x10B0);
             GPIO1->GDIR = 0x8;
             GPIO1->DR = 0x0;
+            
             break;
         }
     }

@@ -17,7 +17,8 @@
                 "${workspaceFolder}/bsp/key",
                 "${workspaceFolder}/bsp/key_filter",
                 "${workspaceFolder}/bsp/led",
-                "${workspaceFolder}/bsp/uart"
+                "${workspaceFolder}/bsp/uart",
+                "${workspaceFolder}/stdio/include"
             ],
             "defines": [
                 "_DEBUG",

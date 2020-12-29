@@ -1,5 +1,5 @@
 CROSS_COMPILE ?= arm-linux-gnueabihf-
-TARGET		  ?= uart
+TARGET		  ?= printf
 
 CC			  := $(CROSS_COMPILE)gcc
 LD            := $(CROSS_COMPILE)ld
@@ -17,7 +17,8 @@ INCLUDIR	  := imx6ul \
 				 bsp/interrupt\
 				 bsp/epit\
 				 bsp/key_filter\
-				 bsp/uart
+				 bsp/uart\
+				 stdio/include
 
 SRCDIR    := project \
 			 bsp/led \
@@ -30,7 +31,8 @@ SRCDIR    := project \
 			 bsp/interrupt\
 			 bsp/epit\
 			 bsp/key_filter\
-			 bsp/uart
+			 bsp/uart\
+			 stdio/lib
 
 INCLUDE := $(patsubst %, -I %, $(INCLUDIR))
 SDIRFILES  := $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.s))
@@ -46,15 +48,17 @@ OBJS := $(SOBJS)$(COBJS)
 
 VPATH = $(SRCDIR)
 
+LIBPATH := -lgcc -L /usr/local/arm/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf/lib/gcc/arm-linux-gnueabihf/7.5.0
+
 $(TARGET).bin : $(OBJS)
-	$(LD) -Timx6u.lds -o $(TARGET).elf $^
+	$(LD) -Timx6u.lds -o $(TARGET).elf $^ $(LIBPATH)
 	$(OBJCOPY) -O binary -S $(TARGET).elf $@
 	$(OBJDUMP) -D -m arm $(TARGET).elf > $(TARGET).dis
 
 $(COBJS) : obj/%.o : %.c
-	@$(CC) -Wall -nostdlib -fno-builtin -c -O2 $(INCLUDE) -o $@ $<
+	$(CC) -Wall -Wa,-mimplicit-it=thumb -nostdlib -fno-builtin -c -O2 $(INCLUDE) -o $@ $<
 $(SOBJS) : obj/%.o : %.s
-	@$(CC) -Wall -nostdlib -fno-builtin  -c -O2 $(INCLUDE) -o $@ $<
+	$(CC) -Wall -nostdlib -fno-builtin  -c -O2 $(INCLUDE) -o $@ $<
 
 .PHONY : clean
 

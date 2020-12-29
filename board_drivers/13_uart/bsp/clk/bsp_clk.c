@@ -61,4 +61,7 @@ void imx6u_clk_init(void)
 	CCM->CSCMR1 &= ~(1 << 6);
 	CCM->CSCMR1 &= ~(7 << 0);
 
+	CCM->CSCDR1 &= ~(1 << 6) ;
+    CCM->CSCDR1 &= ~(0x3F << 0);
+
 }
