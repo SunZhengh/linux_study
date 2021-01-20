@@ -38,8 +38,8 @@ int main(void)
 	while(1)
 	{
 		rtc_getdatetime(&rtcdate);
-		sprintf(buf,"%d/%d/%d %d:%d:%d",rtcdate.year, rtcdate.month, rtcdate.day, rtcdate.hour, rtcdate.minute, rtcdate.second);
-		lcd_show_string(639, 463, 160, 16, 16,(char*)buf);  /* 显示字符串 */
+		sprintf(buf,"%d/%d/%d %d:%d:%d", rtcdate.year, rtcdate.month, rtcdate.day, rtcdate.hour, rtcdate.minute, rtcdate.second);
+		lcd_show_string(639, 463, 160, 16, 16, (char*)buf);  /* 显示字符串 */
 		delay_ms(1000);
 		led_control(led);
 		led = !led;
